@@ -1,17 +1,98 @@
 security:
+    encoders:
+        App\Entity\SuperAdmin:
+            algorithm: bcrypt
+        App\Entity\Admin:
+            algorithm: bcrypt
+        App\Entity\Tech:
+            algorithm: bcrypt
+        App\Entity\User:
+            algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        in_database_super_admin:
+            entity:
+                class: App\Entity\SuperAdmin
+                property: email
+        in_database_admin:
+            entity:
+                class: App\Entity\Admin
+                property: email
+        in_database_user:
+            entity:
+                class: App\Entity\User
+                property: email
+        in_database_tech:
+            entity:
+                class: App\Entity\Tech
+                property: email
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        
+        super_admin:
+            pattern: ^/super-admin
+            anonymous: true
+            provider: in_database_super_admin
+
+            form_login:
+                login_path: super_admin_account_login 
+                check_path: super_admin_account_login
+            
+            logout:
+                path: super_admin_account_logout
+                target: super_admin_account_login 
+
+        admin:
+            pattern: ^/admin
+            anonymous: true
+            provider: in_database_admin
+
+            form_login:
+                login_path: admin_account_login 
+                check_path: admin_account_login
+            
+            logout:
+                path: admin_account_logout
+                target: admin_account_login 
+
+        tech:
+            pattern: ^/tech
+            anonymous: true
+            provider: in_database_tech
+
+            form_login:
+                login_path: tech_account_login 
+                check_path: tech_account_login
+            
+            logout:
+                path: tech_account_logout
+                target: tech_account_login
+
+        tech:
+            pattern: ^/user
+            anonymous: true
+            provider: in_database_user
+
+            form_login:
+                login_path: user_account_login 
+                check_path: user_account_login
+            
+            logout:
+                path: user_account_logout
+                target: user_account_login
+
         main:
             lazy: true
-            provider: users_in_memory
+            anonymous: true
+
+            
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
