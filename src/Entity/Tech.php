@@ -7,9 +7,10 @@ use App\Repository\TechRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: TechRepository::class)]
-class Tech implements UserInterface
+class Tech implements UserInterface,  PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,6 +40,9 @@ class Tech implements UserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $avatar = null;
+
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
 
     #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'techniciens')]
     private Collection $interventions;
@@ -176,22 +180,42 @@ class Tech implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_TECH'];
+        $roles = $this->roles;
+        return array_unique($roles);
     }
 
-    public function getPassword()
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword():string
     {
         return $this->hash;
     }
 
-    public function getSalt(){}
+    public function setPassword(string $password): self
+    {
+        $this->hash = $password;
 
-    public function getUsername(Type $var = null)
+        return $this;
+    }
+    public function getUserIdentifier(Type $var = null):string
     {
         return $this->email;
     }
 
-    public function eraseCredentials(){}
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }

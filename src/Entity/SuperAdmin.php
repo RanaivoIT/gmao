@@ -5,9 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SuperAdminRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: SuperAdminRepository::class)]
-class SuperAdmin implements UserInterface
+class SuperAdmin implements UserInterface,  PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,6 +35,9 @@ class SuperAdmin implements UserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $avatar = null;
+
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
 
     public function getId(): ?int
     {
@@ -124,22 +128,42 @@ class SuperAdmin implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN'];
+        $roles = $this->roles;
+        return array_unique($roles);
     }
 
-    public function getPassword()
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword():string
     {
         return $this->hash;
     }
 
-    public function getSalt(){}
+    public function setPassword(string $password): self
+    {
+        $this->hash = $password;
 
-    public function getUsername(Type $var = null)
+        return $this;
+    }
+    public function getUserIdentifier(Type $var = null):string
     {
         return $this->email;
     }
 
-    public function eraseCredentials(){}
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }
