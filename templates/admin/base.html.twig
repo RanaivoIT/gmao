@@ -24,6 +24,14 @@
                 <main>
                     <div class="container-fluid px-4">
 
+                        {% for label, messages in app.flashes %}
+                            <div class="alert alert-{{ label }} my-2">
+                                {% for message in messages %}
+                                    <span>{{ message | raw }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
                         {% block body %}
                         
                         {% endblock %}
