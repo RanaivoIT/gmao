@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
                 ->setcontact($faker->phoneNumber())
                 ->setEmail($faker->email())
                 ->setHash($this->encoder->hashPassword($superadmin, "password"))
-                ->setAvatar("/img/lettre-g.png")
+                ->setAvatar("/img/avatar.png")
                 ->setRoles(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN']);
         $manager->persist($superadmin);
         
@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
                     ->setcontact($faker->phoneNumber())
                     ->setEmail($faker->email())
                     ->setHash($this->encoder->hashPassword($admin, "password"))
-                    ->setAvatar("/img/lettre-g.png")
+                    ->setAvatar("/img/avatar.png")
                     ->setRoles(['ROLE_ADMIN']);
             $manager->persist($admin);
         }
@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
                     ->setcontact($faker->phoneNumber())
                     ->setEmail($faker->email())
                     ->setHash($this->encoder->hashPassword($admin, "password"))
-                    ->setAvatar("/img/lettre-g.png")
+                    ->setAvatar("/img/avatar.png")
                     ->setRoles(['ROLE_TECH']);
             $manager->persist($tech);
         }

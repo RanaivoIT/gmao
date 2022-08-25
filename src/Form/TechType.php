@@ -15,7 +15,6 @@ class TechType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('avatar', FileType::class)
             ->add('firstname')
             ->add('lastname')
             ->add('speciality')

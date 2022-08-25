@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Tech;
 use App\Form\TechType;
 use App\Repository\TechRepository;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,13 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminTechController extends AbstractController
 {
-    private $manager;
-    public function __constructor(ObjectManager $manager)
-    {
-        $this->manager = $manager;
-    }
-
-    #[Route('/admin/tech', name: 'admin_tech')]
+    
+    #[Route('/admin/techs', name: 'admin_tech')]
     public function index(TechRepository $techrepo): Response
     {
 
@@ -31,20 +26,25 @@ class AdminTechController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/tech/add', name: 'admin_tech_add')]
-    public function add(Request $request): Response
+    #[Route('/admin/techs/add', name: 'admin_tech_add')]
+    public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $tech = new Tech();
         $form = $this->createForm(TechType::class, $tech);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $tech
+                ->setRoles(['ROLE_TECH'])
+                ->setAvatar('/img/avatar.png');
+                
             $manager->persist($tech);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "Le nouveau technicien <strong>'"+ $tech.firstname + " " + $tech.lastname +"'<strong> est ajouté !!!"
+                "Le nouveau technicien <strong>'" . $tech->getFirstname() . ", " . $tech->getLastname() . "'</strong> est ajouté !!!"
             );
 
             return $this->redirectToRoute('admin_tech_show', [
@@ -59,7 +59,7 @@ class AdminTechController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/tech/{id}', name: 'admin_tech_show')]
+    #[Route('/admin/techs/{id}', name: 'admin_tech_show')]
     public function show(Tech $tech): Response
     {
         return $this->render('admin/tech/show.html.twig', [
