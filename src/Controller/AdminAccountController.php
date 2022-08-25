@@ -12,14 +12,19 @@ class AdminAccountController extends AbstractController
     #[Route('/admin/login', name: 'admin_account_login')]
     public function login(AuthenticationUtils $utils): Response
     {
-        $error = $utils->getLastAuthenticationError();
-        $email = $utils->getLastUsername();
+        if ($this->getUser() === null) {
+            $error = $utils->getLastAuthenticationError();
+            $email = $utils->getLastUsername();
+    
+            return $this->render('admin/account/login.html.twig', [
+                'hasError' => $error !== null,
+                'email' => $email
+            ]);
 
-        return $this->render('admin/account/login.html.twig', [
-            'post_path' => 'admin_account_login',
-            'hasError' => $error !== null,
-            'email' => $email
-        ]);
+        }else {
+            return $this->redirectToRoute('admin');
+        }
+       
     }
     #[Route('/admin/logout', name: 'admin_account_logout')]
     public function logout()

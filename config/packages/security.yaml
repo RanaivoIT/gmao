@@ -6,10 +6,6 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
-        in_database_super_admin:
-            entity:
-                class: App\Entity\SuperAdmin
-                property: email
         in_database_admin:
             entity:
                 class: App\Entity\Admin
@@ -27,16 +23,6 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
-        super_admin:
-            pattern: ^/super-admin
-            provider: in_database_super_admin
-            form_login:
-                login_path: super_admin_account_login 
-                check_path: super_admin_account_login
-            logout:
-                path: super_admin_account_logout
-                target: super_admin_account_login 
         admin:
             pattern: ^/admin
             provider: in_database_admin
@@ -54,6 +40,8 @@ security:
             form_login:
                 login_path: tech_account_login 
                 check_path: tech_account_login
+                always_use_default_target_path: true
+                default_target_path: tech
             logout:
                 path: tech_account_logout
                 target: tech_account_login
@@ -63,6 +51,8 @@ security:
             form_login:
                 login_path: user_account_login 
                 check_path: user_account_login
+                always_use_default_target_path: true
+                default_target_path: user
             logout:
                 path: user_account_logout
                 target: user_account_login
@@ -81,7 +71,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/super-admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
         - { path: ^/tech/login, roles: PUBLIC_ACCESS }

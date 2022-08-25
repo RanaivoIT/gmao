@@ -1,0 +1,24 @@
+{% extends "admin/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<h1 class="my-2 h3">Technicien</h1>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Nouveau</span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('admin_tech_add'), 'method': 'POST'}) }}
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

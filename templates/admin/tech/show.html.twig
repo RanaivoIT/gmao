@@ -1,0 +1,93 @@
+{% extends "admin/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<h1 class="my-2 h3">Technicien</h1>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Voir</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ tech.avatar }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ tech.lastname }}, {{ tech.firstname }}</h5>
+                        <p class="text-muted mb-1">{{ tech.speciality }}</p>
+                        <p class="text-muted mb-4">{{ tech.email }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button" class="btn btn-success">Modifier</button>
+                            <button type="button" class="btn btn-outline-danger ms-1">Supprimer</button>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nom</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.firstname }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Prénom</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.lastname }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Spécialité</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.speciality }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.email }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Addresse</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.address }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Contact</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.contact }}</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
