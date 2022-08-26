@@ -21,7 +21,6 @@ class TechType extends AbstractType
             ->add('address')
             ->add('contact')
             ->add('email', EmailType::class)
-            ->add('hash', PasswordType::class)
         ;
     }
 
