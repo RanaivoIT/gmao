@@ -8,16 +8,16 @@
 			<a href="{{ path('admin') }}">Dashboard</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_tech') }}">Techniciens</a>
+			<a href="{{ path('admin_site') }}">Sites</a>
 		</li>
-		<li class="breadcrumb-item active" aria-current="page">{{tech.lastname ~ ", " ~ tech.firstname}}</li>
+		<li class="breadcrumb-item active" aria-current="page">{{site.name}}</li>
 	</ol>
 </nav>
 
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Voir les informations du technicien</span>
+            <span class="card-title h5">Voir le site</span>
         </div>
         <div class="card-body">
 
@@ -25,12 +25,12 @@
                 <div class="col-4 card shadow m-2">
                     
                     <div class="card-body text-center">
-                        <img src="{{ pictures_directory ~ tech.avatar }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                        <h5 class="my-3">{{ tech.lastname }}, {{ tech.firstname }}</h5>
-                        <p class="text-muted mb-1">{{ tech.speciality }}</p>
-                        <p class="text-muted mb-4">{{ tech.email }}</p>
+                        <img src="{{ pictures_directory ~ site.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <h5 class="my-3">{{ site.name }}</h5>
+                        <p class="text-muted mb-1">{{ site.address }}</p>
+                        <p class="text-muted mb-1">{{ site.email }}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <a href=" {{ path('admin_tech_avatar', {'id': tech.id}) }} " type="button" class="btn btn-warning">Changer l'avatar</a>
+                            <a href=" {{ path('admin_site_picture', {'id': site.id}) }} " type="button" class="btn btn-warning">Changer l'image</a>
                         </div>
                     </div>
                    
@@ -38,30 +38,12 @@
                 <div class="col card shadow m-2">
                     
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row responsive">
                             <div class="col-sm-3">
-                                <p class="mb-0">Nom</p>
+                                <p class="mb-0">Nom du site</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ tech.firstname }}</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Prénom</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ tech.lastname }}</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Spécialité</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ tech.speciality }}</p>
+                                <p class="text-muted mb-0">{{ site.name }}</p>
                             </div>
                         </div>
                         <hr>
@@ -70,16 +52,16 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ tech.email }}</p>
+                                <p class="text-muted mb-0">{{ site.email }}</p>
                             </div>
                         </div>
-                        <hr>
+                        <hr>                  
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Addresse</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ tech.address }}</p>
+                                <p class="text-muted mb-0">{{ site.address }}</p>
                             </div>
                         </div>
                         <hr>
@@ -88,14 +70,24 @@
                                 <p class="mb-0">Contact</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ tech.contact }}</p>
+                                <p class="text-muted mb-0">{{ site.contact }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Sevices</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ site.services | length }}</p>
                             </div>
                         </div>
 
                         <hr>
 
                         <div class="d-flex justify-content-start">
-                            <a href="{{ path('admin_tech_edit', {'id': tech.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <a href="{{ path('admin_site_edit', {'id': site.id}) }}" type="button" class="btn btn-success">Modifier</a>
                             <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
                         </div>
                         

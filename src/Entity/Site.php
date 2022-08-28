@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\SiteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SiteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
+#[UniqueEntity(fields:["name"],message:"Name used by other site")]
 class Site
 {
     #[ORM\Id]
@@ -29,6 +31,12 @@ class Site
 
     #[ORM\Column(length: 255)]
     private ?string $address = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $contact = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
     public function __construct()
     {
@@ -102,7 +110,7 @@ class Site
     {
         return $this->users;
     }
-
+    
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
@@ -133,6 +141,30 @@ class Site
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(string $contact): self
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

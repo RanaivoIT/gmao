@@ -1,38 +1,46 @@
 {% extends "admin/base.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
+
+{% form_theme form 'admin/site/_collection.html.twig' %}
+
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
 			<a href="{{ path('admin') }}">Dashboard</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_tech') }}">Techniciens</a>
+			<a href="{{ path('admin_site') }}">Sites</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_tech_show', {id:tech.id}) }}">{{tech.lastname ~ ", " ~ tech.firstname}}</a>
+			<a href="{{ path('admin_site_show', {id:site.id}) }}">{{site.name}}</a>
 		</li>
 		<li class="breadcrumb-item active" aria-current="page">Modifier les informations</li>
 	</ol>
 </nav>
+
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Modifier les informations du techniciens </span>
+            <span class="card-title h5">Modifier les informations du site</span>
         </div>
         <div class="card-body">
 
-            {{ form_start(form, {'action': path('admin_tech_edit', {'id': tech.id}), 'method': 'POST'}) }}
+            {{ form_start(form, {'action': path('admin_site_edit', {'id': site.id}), 'method': 'POST'}) }}
 
             {{ form_widget(form) }}
 
             <button class="btn btn-primary" type="submit">Enregistrer</button>
 
-            <a class="btn btn-secondary" href="{{ path('admin_tech_show', {'id': tech.id}) }}">Annuler</a>
+            <a class="btn btn-secondary" href="{{ path('admin_site_show', {'id': site.id}) }}">Annuler</a>
 
             {{ form_end(form) }}
 
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/shared/admin.site.js"></script>
 {% endblock %}

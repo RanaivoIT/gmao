@@ -18,8 +18,6 @@ class Organe
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
 
     #[ORM\ManyToOne(inversedBy: 'organes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -46,18 +44,6 @@ class Organe
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }

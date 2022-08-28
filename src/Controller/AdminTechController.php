@@ -40,7 +40,7 @@ class AdminTechController extends AbstractController
             $tech
                 ->setHash($encoder->hashPassword($tech, "password"))
                 ->setRoles(['ROLE_TECH'])
-                ->setAvatar('/img/avatar.png');
+                ->setAvatar('avatar.png');
                 
             $manager->persist($tech);
             $manager->flush();
@@ -76,7 +76,7 @@ class AdminTechController extends AbstractController
     #[Route('/admin/techs/{id}/edit', name: 'admin_tech_edit')]
     public function edit(Tech $tech, Request $request, EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(TechType::class);
+        $form = $this->createForm(TechType::class, $tech);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

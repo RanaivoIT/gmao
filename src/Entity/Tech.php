@@ -7,9 +7,11 @@ use App\Repository\TechRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: TechRepository::class)]
+#[UniqueEntity(fields:["email"],message:"Email used by other tech")]
 class Tech implements UserInterface,  PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

@@ -1,18 +1,21 @@
 {% extends "admin/base.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
+
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
 			<a href="{{ path('admin') }}">Dashboard</a>
 		</li>
-		<li class="breadcrumb-item active" aria-current="page">Techniciens</li>
+		<li class="breadcrumb-item active" aria-current="page">Sites</li>
 	</ol>
 </nav>
+
+
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Liste</span>
+            <span class="card-title h5">Liste des sites</span>
         </div>
         <div class="card-body">
 
@@ -22,24 +25,24 @@
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Spécialité</th>
                             <th>Email</th>
                             <th>Adresse</th>
-                            <th>contact</th>
+                            <th>Contact</th>
+                            <th>Services</th>
+                            <th>Utilisateurs</th>
                         </tr>
                     </thead>
                     
                     <tbody>
-                        {% for tech in techs %}
+                        {% for site in sites %}
                             <tr>
-                                <td> <a href="{{ path('admin_tech_show', {'id': tech.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ tech.id }}</a> </td>
-                                <td>{{ tech.firstname }}</td>
-                                <td>{{ tech.lastname }}</td>
-                                <td>{{ tech.speciality }}</td>
-                                <td>{{ tech.email }}</td>
-                                <td>{{ tech.address }}</td>
-                                <td>{{ tech.contact }}</td>
+                                <td> <a href="{{ path('admin_site_show', {'id': site.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ site.id }}</a> </td>
+                                <td>{{ site.name }}</td>
+                                <td>{{ site.email }}</td>
+                                <td>{{ site.address }}</td>
+                                <td>{{ site.contact }}</td>
+                                <td>{{ site.services | length }}</td>
+                                <td>{{ site.users | length }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

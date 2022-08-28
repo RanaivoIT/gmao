@@ -7,10 +7,10 @@
 			<a href="{{ path('admin') }}">Dashboard</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_tech') }}">Techniciens</a>
+			<a href="{{ path('admin_admin') }}">Administrateurs</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_tech_show', {id:tech.id}) }}">{{tech.lastname ~ ", " ~ tech.firstname}}</a>
+			<a href="{{ path('admin_admin_show', {id:admin.id}) }}">{{admin.lastname ~ ", " ~ admin.firstname}}</a>
 		</li>
 		<li class="breadcrumb-item active" aria-current="page">Modifier les informations</li>
 	</ol>
@@ -18,17 +18,17 @@
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Modifier les informations du techniciens </span>
+            <span class="card-title h5">Modifier les informations de l'administrateur</span>
         </div>
         <div class="card-body">
 
-            {{ form_start(form, {'action': path('admin_tech_edit', {'id': tech.id}), 'method': 'POST'}) }}
+            {{ form_start(form, {'action': path('admin_admin_edit', {'id': admin.id}), 'method': 'POST'}) }}
 
             {{ form_widget(form) }}
 
             <button class="btn btn-primary" type="submit">Enregistrer</button>
 
-            <a class="btn btn-secondary" href="{{ path('admin_tech_show', {'id': tech.id}) }}">Annuler</a>
+            <a class="btn btn-secondary" href="{{ path('admin_admin_show', {'id': admin.id}) }}">Annuler</a>
 
             {{ form_end(form) }}
 

@@ -1,0 +1,133 @@
+{% extends "admin/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('admin') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('admin_equipement') }}">Equipements</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">{{equipement.name}}</li>
+	</ol>
+</nav>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Voir l' equipement</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ pictures_directory ~ equipement.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <h5 class="my-3">{{ equipement.name }}</h5>
+                        <p class="text-muted mb-1">{{ equipement.maker }}</p>
+                        <p class="text-muted mb-1">{{ equipement.origin }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href=" {{ path('admin_equipement_picture', {'id': equipement.id}) }} " type="button" class="btn btn-warning">Changer l'image</a>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row responsive">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nom de l' equipement</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Fabricant</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.maker }}</p>
+                            </div>
+                        </div>
+                        <hr>                  
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Origine</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.origin }}</p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Organes</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.organes | length }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ path('admin_equipement_edit', {'id': equipement.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>   
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <span class="card-title h5">Liste des organes</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Pieces</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                {% for organe in equipement.organes %}
+                                    <tr>
+                                        <td> <a href="{{ path('admin_equipement_organe_edit', {'id': organe.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ equipement.id }}</a> </td>
+                                        <td>{{ organe.name }}</td>
+                                        <td>{{ organe.pieces | length }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                 
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

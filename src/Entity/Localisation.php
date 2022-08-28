@@ -31,7 +31,7 @@ class Localisation
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Service $service = null;
+    private ?Site $site = null;
 
     #[ORM\OneToMany(mappedBy: 'localisation', targetEntity: Demande::class, orphanRemoval: true)]
     private Collection $demandes;
@@ -94,14 +94,14 @@ class Localisation
         return $this;
     }
 
-    public function getService(): ?Service
+    public function getSite(): ?Site
     {
-        return $this->service;
+        return $this->site;
     }
 
-    public function setService(?Service $service): self
+    public function setSite(?Site $site): self
     {
-        $this->service = $service;
+        $this->site = $site;
 
         return $this;
     }

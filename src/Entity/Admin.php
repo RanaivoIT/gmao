@@ -5,10 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AdminRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: AdminRepository::class)]
 #[ORM\Table(name: '`admin`')]
+#[UniqueEntity(fields:["email"],message:"Email used by other admin")]
 class Admin implements UserInterface,  PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -39,6 +41,9 @@ class Admin implements UserInterface,  PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
+
+    #[ORM\Column(length: 255)]
+    private ?string $job = null;
 
     public function getId(): ?int
     {
@@ -168,5 +173,17 @@ class Admin implements UserInterface,  PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(string $job): self
+    {
+        $this->job = $job;
+
+        return $this;
     }
 }

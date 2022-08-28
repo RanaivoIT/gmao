@@ -1,18 +1,21 @@
 {% extends "admin/base.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
+
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
 			<a href="{{ path('admin') }}">Dashboard</a>
 		</li>
-		<li class="breadcrumb-item active" aria-current="page">Techniciens</li>
+		<li class="breadcrumb-item active" aria-current="page">Equipements</li>
 	</ol>
 </nav>
+
+
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Liste</span>
+            <span class="card-title h5">Liste des equipements</span>
         </div>
         <div class="card-body">
 
@@ -22,24 +25,20 @@
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Spécialité</th>
-                            <th>Email</th>
-                            <th>Adresse</th>
-                            <th>contact</th>
+                            <th>Fabricant</th>
+                            <th>Origine</th>
+                            <th>Organes</th>
                         </tr>
                     </thead>
                     
                     <tbody>
-                        {% for tech in techs %}
+                        {% for equipement in equipements %}
                             <tr>
-                                <td> <a href="{{ path('admin_tech_show', {'id': tech.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ tech.id }}</a> </td>
-                                <td>{{ tech.firstname }}</td>
-                                <td>{{ tech.lastname }}</td>
-                                <td>{{ tech.speciality }}</td>
-                                <td>{{ tech.email }}</td>
-                                <td>{{ tech.address }}</td>
-                                <td>{{ tech.contact }}</td>
+                                <td> <a href="{{ path('admin_equipement_show', {'id': equipement.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ equipement.id }}</a> </td>
+                                <td>{{ equipement.name }}</td>
+                                <td>{{ equipement.maker }}</td>
+                                <td>{{ equipement.origin }}</td>
+                                <td>{{ equipement.organes | length }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
