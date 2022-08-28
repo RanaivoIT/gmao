@@ -40,9 +40,9 @@ class AdminEquipementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            foreach ($equipement->getServices() as $service) {
-                $service->setEquipement($equipement);
-                $manager->persist($service);
+            foreach ($equipement->getOrganes() as $organe) {
+                $organe->setEquipement($equipement);
+                $manager->persist($organe);
             }
 
             $equipement
@@ -86,7 +86,10 @@ class AdminEquipementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            foreach ($equipement->getOrganes() as $organe) {
+                $organe->setEquipement($equipement);
+                $manager->persist($organe);
+            }
             $manager->persist($equipement);
             $manager->flush();
 

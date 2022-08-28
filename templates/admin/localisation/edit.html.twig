@@ -1,0 +1,38 @@
+{% extends "admin/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('admin') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('admin_localisation') }}">Localisation</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('admin_localisation_show', {id:localisation.id}) }}">{{localisation.equipement.name ~ ", " ~ localisation.site.name}}</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Modifier la localisation</li>
+	</ol>
+</nav>
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Modifier la localisation</span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('admin_localisation_edit', {'id': localisation.id}), 'method': 'POST'}) }}
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+            <a class="btn btn-secondary" href="{{ path('admin_localisation_show', {'id': localisation.id}) }}">Annuler</a>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "admin/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('admin') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('admin_localisation') }}">Localisation</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">{{localisation.equipement.name ~ ", " ~ localisation.site.name}}</li>
+	</ol>
+</nav>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Voir la localisation</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ pictures_directory ~ localisation.equipement.picture }}" alt="picture" class="rounded img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ localisation.equipement.name }}, {{ localisation.site.name }}</h5>
+                        <p class="text-muted mb-1">Ajouté le {{ localisation.createdAt | date("d/m/Y") }}</p>
+                        <p class="text-muted mb-4">Mise en service le {{ localisation.usedAt | date("d/m/Y") }}</p>
+                        
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Equipement</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.equipement.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Site</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.site.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Ajouté le</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.createdAt | date("d/m/Y") }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Mise en service le</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.usedAt | date("d/m/Y") }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Etat</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.state }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ path('admin_localisation_edit', {'id': localisation.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>
+
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

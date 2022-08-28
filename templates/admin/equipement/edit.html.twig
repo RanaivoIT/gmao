@@ -2,6 +2,7 @@
 {% block title %} {{title}} {% endblock %}
 {% block body %}
 
+{% form_theme form _self %}
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
@@ -37,4 +38,64 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block _equipement_organes_widget %}
+    {{ form_widget(form) }}
+    <button type="button" class="btn btn-warning" id="add-organe"> Ajouter une organe </button>   
+{% endblock %}
+
+{% block _equipement_organes_entry_row %}
+    {{ form_widget(form)}}
+{% endblock %}
+
+{% block _equipement_organes_entry_widget %}
+    <div class="mb-3" id="block_{{id}}">
+
+        <div class="row">
+            <div class="col-10">
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger" id="delete-organe" data-action="delete" data-target="block_{{id}}"> X </button>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    const addService = document.getElementById('add-organe');
+    addService.addEventListener('click', () => {
+        
+        const index =Math.round(Math.random()*1000)
+
+        let tmpl = document.getElementById('equipement_organes').dataset.prototype.replace(/__name__/g, index)
+
+        let div = document.createElement('div')
+        div.innerHTML = tmpl
+
+        document.getElementById('equipement_organes').appendChild(div)
+
+        handleDeleteButton()
+
+    })
+
+    function handleDeleteButton() {
+        document.querySelectorAll('button[data-action="delete"]').forEach((e) => {
+            const target = e.dataset.target
+            e.addEventListener(
+                'click',
+                () => {
+                    document.getElementById(target).remove()
+                }
+            )
+        })
+    }
+
+    handleDeleteButton()
+
+</script>
+
 {% endblock %}

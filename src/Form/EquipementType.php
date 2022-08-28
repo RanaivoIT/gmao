@@ -16,7 +16,16 @@ class EquipementType extends AbstractType
             ->add('name')
             ->add('maker')
             ->add('origin')
-            ->add('description');
+            ->add('description')
+            ->add(
+                'organes', 
+                CollectionType::class, 
+                [
+                    'entry_type' => OrganeType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true
+                ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
