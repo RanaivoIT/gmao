@@ -36,6 +36,9 @@ class Localisation
     #[ORM\OneToMany(mappedBy: 'localisation', targetEntity: Demande::class, orphanRemoval: true)]
     private Collection $demandes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $service = null;
+
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
@@ -132,6 +135,18 @@ class Localisation
                 $demande->setLocalisation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getService(): ?string
+    {
+        return $this->service;
+    }
+
+    public function setService(string $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }

@@ -18,14 +18,7 @@ class SiteType extends AbstractType
             ->add('address')
             ->add('contact')
             ->add('email')
-            ->add(
-                'services', 
-                CollectionType::class, 
-                [
-                    'entry_type' => ServiceType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true
-                ])
+            
         ;
     }
 

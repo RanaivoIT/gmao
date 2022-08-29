@@ -73,14 +73,13 @@
                                 <p class="text-muted mb-0">{{ site.contact }}</p>
                             </div>
                         </div>
-
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Sevices</p>
+                                <p class="mb-0">Utilisateurs</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ site.services | length }}</p>
+                                <p class="text-muted mb-0">{{ site.users | length }}</p>
                             </div>
                         </div>
 
@@ -98,6 +97,42 @@
                 </div>
             </div>
 
+            <div class="card my-3 shadow">
+                <div class="card-header">
+            <span class="card-title h5">Liste des utilisateurs du site</span>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Site</th>
+                            <th>Poste</th>
+                            <th>Email</th>
+                            <th>Adresse</th>
+                            <th>contact</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for user in site.users %}
+                            <tr>
+                                <td> <a href="{{ path('admin_user_show', {'id': user.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ user.id }}</a> </td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.site.name }}</td>
+                                <td>{{ user.job }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.address }}</td>
+                                <td>{{ user.contact }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

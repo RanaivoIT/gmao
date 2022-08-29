@@ -23,9 +23,6 @@ class Site
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Service::class, orphanRemoval: true)]
-    private Collection $services;
-
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
@@ -38,9 +35,9 @@ class Site
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+
     public function __construct()
     {
-        $this->services = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
@@ -69,36 +66,6 @@ class Site
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Service>
-     */
-    public function getServices(): Collection
-    {
-        return $this->services;
-    }
-
-    public function addService(Service $service): self
-    {
-        if (!$this->services->contains($service)) {
-            $this->services->add($service);
-            $service->setSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeService(Service $service): self
-    {
-        if ($this->services->removeElement($service)) {
-            // set the owning side to null (unless already changed)
-            if ($service->getSite() === $this) {
-                $service->setSite(null);
-            }
-        }
 
         return $this;
     }
@@ -168,4 +135,5 @@ class Site
 
         return $this;
     }
+
 }

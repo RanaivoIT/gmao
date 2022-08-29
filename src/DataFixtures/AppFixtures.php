@@ -97,12 +97,6 @@ class AppFixtures extends Fixture
                     $manager->persist($user);
                 }
 
-                for ($j=0; $j < mt_rand(2, 5); $j++) { 
-                    $service = new Service();
-                    $service->setName($faker->jobTitle())
-                        ->setSite($site);
-                    $manager->persist($service);
-                }
             $manager->persist($site);
         }
 

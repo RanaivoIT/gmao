@@ -38,11 +38,6 @@ class AdminSiteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            foreach ($site->getServices() as $service) {
-                $service->setSite($site);
-                $manager->persist($service);
-            }
-
             $site
                 ->setPicture('site.jpg');
                 
@@ -85,11 +80,6 @@ class AdminSiteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            foreach ($site->getServices() as $service) {
-                $service->setSite($site);
-                $manager->persist($service);
-            }
-
             $manager->persist($site);
             $manager->flush();
 

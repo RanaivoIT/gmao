@@ -7,7 +7,7 @@
 			<a href="{{ path('admin') }}">Dashboard</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_localisation') }}">Localisation</a>
+			<a href="{{ path('admin_localisation') }}">Localisations</a>
 		</li>
 		<li class="breadcrumb-item active" aria-current="page">{{localisation.equipement.name ~ ", " ~ localisation.site.name}}</li>
 	</ol>
@@ -26,7 +26,7 @@
                     <div class="card-body text-center">
                         <img src="{{ pictures_directory ~ localisation.equipement.picture }}" alt="picture" class="rounded img-fluid" style="width: 150px;">
                         <h5 class="my-3">{{ localisation.equipement.name }}, {{ localisation.site.name }}</h5>
-                        <p class="text-muted mb-1">Ajouté le {{ localisation.createdAt | date("d/m/Y") }}</p>
+                        <p class="text-muted mb-1">{{ localisation.service }}</p>
                         <p class="text-muted mb-4">Mise en service le {{ localisation.usedAt | date("d/m/Y") }}</p>
                         
                     </div>
@@ -55,6 +55,15 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
+                                <p class="mb-0">Service</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.service }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <p class="mb-0">Ajouté le</p>
                             </div>
                             <div class="col-sm-9">
@@ -76,7 +85,16 @@
                                 <p class="mb-0">Etat</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ localisation.state }}</p>
+                                {% if localisation.state == "En service" %}
+                                    <p class=" mb-0 text-success">{{ localisation.state }}</p>
+                                {% endif %}
+                                {% if localisation.state == "En panne" %}
+                                    <p class=" mb-0 text-warning">{{ localisation.state }}</p>
+                                {% endif %}
+                                {% if localisation.state == "Hors service" %}
+                                    <p class="mb-0 text-danger">{{ localisation.state }}</p>
+                                {% endif %}
+                                
                             </div>
                         </div>
                         <hr>

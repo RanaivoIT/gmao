@@ -2,8 +2,6 @@
 {% block title %} {{title}} {% endblock %}
 {% block body %}
 
-{% form_theme form 'admin/site/_collection.html.twig' %}
-
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
@@ -34,8 +32,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="/js/shared/admin.site.js"></script>
 {% endblock %}

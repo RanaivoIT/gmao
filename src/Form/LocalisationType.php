@@ -25,7 +25,7 @@ class LocalisationType extends AbstractType
                 'class'  => Site::class,
                 'choice_label' => 'name'
             ])
-            
+            ->add('service')
             ->add('usedAt', DateType::class, [
                 'widget' => 'choice',
                 'input'  => 'datetime',
