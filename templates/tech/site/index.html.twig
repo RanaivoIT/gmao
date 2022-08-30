@@ -1,0 +1,62 @@
+{% extends "tech/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('tech') }}">Dashboard</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Sites</li>
+	</ol>
+</nav>
+
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des sites</span>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Adresse</th>
+                            <th>Contact</th>
+                            <th>Utilisateurs</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for site in sites %}
+                            <tr>
+                                <td> <a href="{{ path('tech_site_show', {'id': site.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ site.id }}</a> </td>
+                                <td>{{ site.name }}</td>
+                                <td>{{ site.email }}</td>
+                                <td>{{ site.address }}</td>
+                                <td>{{ site.contact }}</td>
+                                <td>{{ site.users | length }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

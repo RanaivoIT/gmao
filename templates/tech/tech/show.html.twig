@@ -1,0 +1,112 @@
+{% extends "tech/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('tech') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('tech_tech') }}">Techniciens</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">{{tech.lastname ~ ", " ~ tech.firstname}}</li>
+	</ol>
+</nav>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Voir les informations du technicien</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ pictures_directory ~ tech.avatar }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ tech.lastname }}, {{ tech.firstname }}</h5>
+                        <p class="text-muted mb-1">{{ tech.speciality }}</p>
+                        <p class="text-muted mb-4">{{ tech.email }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href=" {{ path('tech_tech_avatar', {'id': tech.id}) }} " type="button" class="btn btn-warning">Changer l'avatar</a>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nom</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.firstname }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Prénom</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.lastname }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Spécialité</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.speciality }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.email }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Addresse</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.address }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Contact</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ tech.contact }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ path('tech_tech_edit', {'id': tech.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>
+
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

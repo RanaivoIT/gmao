@@ -1,0 +1,38 @@
+{% extends "tech/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('tech') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('tech_tech') }}">Techniciens</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('tech_tech_show', {id:tech.id}) }}">{{tech.lastname ~ ", " ~ tech.firstname}}</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Modifier les informations</li>
+	</ol>
+</nav>
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Modifier les informations du techniciens </span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('tech_tech_edit', {'id': tech.id}), 'method': 'POST'}) }}
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+            <a class="btn btn-secondary" href="{{ path('tech_tech_show', {'id': tech.id}) }}">Annuler</a>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

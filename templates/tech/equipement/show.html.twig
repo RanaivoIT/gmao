@@ -1,0 +1,187 @@
+{% extends "tech/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('tech') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('tech_equipement') }}">Equipements</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">{{equipement.name}}</li>
+	</ol>
+</nav>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Voir l' equipement</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ pictures_directory ~ equipement.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <h5 class="my-3">{{ equipement.name }}</h5>
+                        <p class="text-muted mb-1">{{ equipement.maker }}</p>
+                        <p class="text-muted mb-1">{{ equipement.origin }}</p>
+                        
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row responsive">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nom </p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Fabricant</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.maker }}</p>
+                            </div>
+                        </div>
+                        <hr>                  
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Origine</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.origin }}</p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Organes</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.organes | length }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Localisations</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.localisations | length }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-start">
+                            <a href="" type="button" class="btn btn-primary">Imprimer</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>   
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <span class="card-title h5">Liste des organes de l'equipement</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Pieces</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                {% for organe in equipement.organes %}
+                                    <tr>
+                                        <td> <a href="{{ path('tech_equipement_organe_edit', {'id': organe.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ equipement.id }}</a> </td>
+                                        <td>{{ organe.name }}</td>
+                                        <td>{{ organe.pieces | length }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="card my-3 shadow">
+                <div class="card-header">
+                    <span class="card-title h5">Liste des Localisations de l'equipement</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Site</th>
+                                    <th>Service</th>
+                                    <th>Mise en service</th>
+                                    <th>Etat</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                {% for localisation in equipement.localisations %}
+                                    <tr>
+                                        <td> <a href="{{ path('tech_localisation_edit', {'id': localisation.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ localisation.id }}</a> </td>
+                                        <td>{{ localisation.site.name }}</td>
+                                        <td>{{ localisation.service }}</td>
+                                        <td>{{ localisation.usedAt | date("d/m/Y") }}</td>
+                                        {% if localisation.state == "En service" %}
+                                            <td class=" mb-0 text-success">{{ localisation.state }}</td>
+                                        {% endif %}
+                                        {% if localisation.state == "En panne" %}
+                                            <td class=" mb-0 text-warning">{{ localisation.state }}</td>
+                                        {% endif %}
+                                        {% if localisation.state == "Hors service" %}
+                                            <td class="mb-0 text-danger">{{ localisation.state }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable1');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}
