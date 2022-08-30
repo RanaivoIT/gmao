@@ -1,14 +1,17 @@
-{% extends "admin/base.html.twig" %}
+{% extends "user/base.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
+
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
-			<a href="{{ path('admin') }}">Dashboard</a>
+			<a href="{{ path('user') }}">Dashboard</a>
 		</li>
 		<li class="breadcrumb-item active" aria-current="page">Techniciens</li>
 	</ol>
 </nav>
+
+
 <div class="content">
     <div class="card">
         <div class="card-header">
@@ -33,7 +36,7 @@
                     <tbody>
                         {% for tech in techs %}
                             <tr>
-                                <td> <a href="{{ path('admin_tech_show', {'id': tech.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ tech.id }}</a> </td>
+                                <td> <a href="{{ path('user_tech_show', {'id': tech.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ tech.id }}</a> </td>
                                 <td>{{ tech.firstname }}</td>
                                 <td>{{ tech.lastname }}</td>
                                 <td>{{ tech.speciality }}</td>

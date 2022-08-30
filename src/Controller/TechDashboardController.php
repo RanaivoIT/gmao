@@ -12,7 +12,7 @@ class TechDashboardController extends AbstractController
     public function index(): Response
     {
         return $this->render('tech/dashboard/index.html.twig', [
-            'controller_name' => 'TechDashboardController',
+            'title' => 'Technicien',
         ]);
     }
 }

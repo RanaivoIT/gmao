@@ -1,22 +1,23 @@
-{% extends "admin/base.html.twig" %}
+{% extends "user/base.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
+
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
-			<a href="{{ path('admin') }}">Dashboard</a>
+			<a href="{{ path('user') }}">Dashboard</a>
 		</li>
         <li class="breadcrumb-item">
-			<a href="{{ path('admin_user') }}">Utilisateurs</a>
+			<a href="{{ path('user_equipement') }}">Equipements</a>
 		</li>
-		<li class="breadcrumb-item active" aria-current="page">{{user.lastname ~ ", " ~ user.firstname}}</li>
+		<li class="breadcrumb-item active" aria-current="page">{{localisation.equipement.name}}</li>
 	</ol>
 </nav>
 
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Voir les informations de l'utilisateur</span>
+            <span class="card-title h5">Voir l' equipement</span>
         </div>
         <div class="card-body">
 
@@ -24,34 +25,41 @@
                 <div class="col-4 card shadow m-2">
                     
                     <div class="card-body text-center">
-                        <img src="{{ pictures_directory ~ user.avatar }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                        <h5 class="my-3">{{ user.lastname }}, {{ user.firstname }}</h5>
-                        <p class="text-muted mb-1">{{ user.job }}</p>
-                        <p class="text-muted mb-4">{{ user.email }}</p>
-                        <div class="d-flex justify-content-center mb-2">
-                            <a href=" {{ path('admin_user_avatar', {'id': user.id}) }} " type="button" class="btn btn-warning">Changer l'avatar</a>
-                        </div>
+                        <img src="{{ pictures_directory ~ localisation.equipement.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <h5 class="my-3">{{ localisation.equipement.name }}</h5>
+                        <p class="text-muted mb-1">{{ localisation.equipement.maker }}</p>
+                        <p class="text-muted mb-1">{{ localisation.equipement.origin }}</p>
+                        
                     </div>
                    
                 </div>
                 <div class="col card shadow m-2">
                     
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row responsive">
                             <div class="col-sm-3">
-                                <p class="mb-0">Nom</p>
+                                <p class="mb-0">Nom </p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.firstname }}</p>
+                                <p class="text-muted mb-0">{{ localisation.equipement.name }}</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Prénom</p>
+                                <p class="mb-0">Fabricant</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.lastname }}</p>
+                                <p class="text-muted mb-0">{{ localisation.equipement.maker }}</p>
+                            </div>
+                        </div>
+                        <hr>                  
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Origine</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ localisation.equipement.origin }}</p>
                             </div>
                         </div>
                         <hr>
@@ -60,59 +68,57 @@
                                 <p class="mb-0">Site</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.site.name }}</p>
+                                <p class="text-muted mb-0">{{ localisation.site.name }}</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Poste</p>
+                                <p class="mb-0">Service</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.job }}</p>
+                                <p class="text-muted mb-0">{{ localisation.service }}</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Email</p>
+                                <p class="mb-0">Mise en service</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.email }}</p>
+                                <p class="text-muted mb-0">{{ localisation.usedAt | date("d/m/Y") }}</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Addresse</p>
+                                <p class="mb-0">Etat</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.address }}</p>
+                                {% if localisation.state == "En service" %}
+                                    <p class=" mb-0 text-success">{{ localisation.state }}</p>
+                                {% endif %}
+                                {% if localisation.state == "En panne" %}
+                                    <p class=" mb-0 text-warning">{{ localisation.state }}</p>
+                                {% endif %}
+                                {% if localisation.state == "Hors service" %}
+                                    <p class="mb-0 text-danger">{{ localisation.state }}</p>
+                                {% endif %}
+                                
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Contact</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.contact }}</p>
-                            </div>
-                        </div>
-
                         <hr>
 
                         <div class="d-flex justify-content-start">
-                            <a href="{{ path('admin_user_edit', {'id': user.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <a href="" type="button" class="btn btn-primary">Imprimer</a>
                             <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
                         </div>
                         
-                    </div>
-
-
-                    
+                    </div>   
                 </div>
             </div>
+
+            
 
         </div>
     </div>

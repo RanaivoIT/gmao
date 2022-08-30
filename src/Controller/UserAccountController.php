@@ -12,13 +12,18 @@ class UserAccountController extends AbstractController
     #[Route('/user/login', name: 'user_account_login')]
     public function login(AuthenticationUtils $utils): Response
     {
-        $error = $utils->getLastAuthenticationError();
-        $email = $utils->getLastUsername();
-        
-        return $this->render('user/account/login.html.twig', [
-            'hasError' => $error !== null,
-            'email' => $email
-        ]);
+        if ($this->getUser() === null) {
+            $error = $utils->getLastAuthenticationError();
+            $email = $utils->getLastUsername();
+            
+            return $this->render('user/account/login.html.twig', [
+                'hasError' => $error !== null,
+                'email' => $email
+            ]);
+
+        }else {
+            return $this->redirectToRoute('user');
+        }
     }
     #[Route('/user/logout', name: 'user_account_logout')]
     public function logout()

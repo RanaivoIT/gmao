@@ -1,0 +1,38 @@
+{% extends "user/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('user') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('user_user') }}">Utilisateurs</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('user_user_show', {id:user.id}) }}">{{user.lastname ~ ", " ~ user.firstname}}</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Modifier les informations</li>
+	</ol>
+</nav>
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Modifier les informations de l'utilisateur</span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('user_user_edit', {'id': user.id}), 'method': 'POST'}) }}
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+            <a class="btn btn-secondary" href="{{ path('user_user_show', {'id': user.id}) }}">Annuler</a>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

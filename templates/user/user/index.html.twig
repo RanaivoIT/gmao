@@ -1,18 +1,18 @@
-{% extends "admin/base.html.twig" %}
+{% extends "user/base.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
 <nav aria-label="breadcrumb" >
 	<ol class="breadcrumb my-3">
 		<li class="breadcrumb-item">
-			<a href="{{ path('admin') }}">Dashboard</a>
+			<a href="{{ path('user') }}">Dashboard</a>
 		</li>
-		<li class="breadcrumb-item active" aria-current="page">Techniciens</li>
+		<li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
 	</ol>
 </nav>
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Liste des techniciens</span>
+            <span class="card-title h5">Liste des utilisateurs</span>
         </div>
         <div class="card-body">
 
@@ -23,7 +23,7 @@
                             <th>ID</th>
                             <th>Nom</th>
                             <th>Prénom</th>
-                            <th>Spécialité</th>
+                            <th>Poste</th>
                             <th>Email</th>
                             <th>Adresse</th>
                             <th>contact</th>
@@ -31,15 +31,15 @@
                     </thead>
                     
                     <tbody>
-                        {% for tech in techs %}
+                        {% for user in users %}
                             <tr>
-                                <td> <a href="{{ path('admin_tech_show', {'id': tech.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ tech.id }}</a> </td>
-                                <td>{{ tech.firstname }}</td>
-                                <td>{{ tech.lastname }}</td>
-                                <td>{{ tech.speciality }}</td>
-                                <td>{{ tech.email }}</td>
-                                <td>{{ tech.address }}</td>
-                                <td>{{ tech.contact }}</td>
+                                <td> <a href="{{ path('user_user_show', {'id': user.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ user.id }}</a> </td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.job }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.address }}</td>
+                                <td>{{ user.contact }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
