@@ -1,0 +1,70 @@
+{% extends "user/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('user') }}">Dashboard</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Demandes</li>
+	</ol>
+</nav>
+
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des demandes d'interventions</span>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mise en service</th>
+                            <th>Equipement</th>
+                            <th>Site</th>
+                            <th>Service</th>
+                            <th>Etat</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for localisation in localisations %}
+                            <tr>
+                                <td> <a href="{{ path('user_equipement_show', {'id': localisation.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ localisation.id }}</a> </td>
+                                <td>{{ localisation.equipement.name }}</td>
+                                <td>{{ localisation.site.name }}</td>
+                                <td>{{ localisation.service }}</td>
+                                <td>{{ localisation.usedAt | date("d/m/Y") }}</td>
+                                {% if localisation.state == "En service" %}
+                                    <td class=" mb-0 text-success">{{ localisation.state }}</td>
+                                {% endif %}
+                                {% if localisation.state == "En panne" %}
+                                    <td class=" mb-0 text-warning">{{ localisation.state }}</td>
+                                {% endif %}
+                                {% if localisation.state == "Hors service" %}
+                                    <td class="mb-0 text-danger">{{ localisation.state }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}
