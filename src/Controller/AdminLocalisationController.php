@@ -33,7 +33,8 @@ class AdminLocalisationController extends AbstractController
     public function add(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $localisation = new Localisation();
-
+        $localisation->setUsedAt(new DateTime());
+        $localisation->setService('Direction');
         $form = $this->createForm(LocalisationType::class, $localisation);
         $form->handleRequest($request);
 

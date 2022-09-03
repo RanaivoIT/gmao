@@ -29,7 +29,7 @@ class LocalisationType extends AbstractType
             ->add('usedAt', DateType::class, [
                 'widget' => 'choice',
                 'input'  => 'datetime',
-                'format' => 'dd MMMM yyyy'
+                'format' => 'dd MMM yyyy'
             ])
             ->add('state',ChoiceType::class, [
                 'choices'  => [
