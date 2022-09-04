@@ -1,0 +1,48 @@
+{% extends "user/base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+<nav aria-label="breadcrumb" >
+	<ol class="breadcrumb my-3">
+		<li class="breadcrumb-item">
+			<a href="{{ path('user') }}">Dashboard</a>
+		</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('user_demande') }}">Demandes</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">Ajouter</li>
+	</ol>
+</nav>
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Nouvelle demande</span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('user_demande_add', {id:demande.localisation.id}), 'method': 'POST'}) }}
+
+            <div class="mb-3">
+                <label for="Site">Site</label>
+                <input type="text" class="form-control" value="{{ demande.localisation.site.name }}" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="Site">Service</label>
+                <input type="text" class="form-control" value="{{ demande.localisation.service }}" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="Site">Equipement</label>
+                <input type="text" class="form-control" value="{{ demande.localisation.equipement.name }}" disabled>
+            </div>
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

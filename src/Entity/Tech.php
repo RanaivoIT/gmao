@@ -83,6 +83,11 @@ class Tech implements UserInterface,  PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getNameAndSpeciality(): ?string
+    {
+        return $this->getLastname() . ', ' . $this->getFirstname() .' "'. $this->getSpeciality() .'"';
+    }
+
     public function getSpeciality(): ?string
     {
         return $this->speciality;
